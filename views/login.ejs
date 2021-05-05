@@ -1,0 +1,31 @@
+<%- include('header'); -%>
+<%
+if(failed){%>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Credenziali errate.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>
+<div class="row" style="overflow: hidden;">
+    <div class="offset-md-2 col-8">
+        <center style="margin-top: 30px;">
+            <h1>login</h1>
+            <form style="margin-top: 30px;" method="POST" action="/login/checkLogin">
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">username</label>
+                <div class="col-sm-10">
+                  <input type="username" name="username" class="form-control" id="inputUsername" value="<%- username -%>">
+                </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                      <input type="password" name="password" class="form-control" id="inputPassword" value="<%- password -%>">
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary" value="login">
+            </form>
+        </center>
+    </div>
+</div>
+<%- include('footer'); -%>
