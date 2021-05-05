@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 05, 2021 alle 23:08
+-- Creato il: Mag 05, 2021 alle 23:15
 -- Versione del server: 10.4.18-MariaDB
 -- Versione PHP: 8.0.5
 
@@ -44,13 +44,6 @@ CREATE TABLE `user` (
   `username` text NOT NULL,
   `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dump dei dati per la tabella `user`
---
-
-INSERT INTO `user` (`id`, `username`, `password`) VALUES
-(2, 'mtttia', 'e7b87c3edeb70d135368fa6e1afc997961ab9186c310e20e9d3e89fdbbda3b8a6d715274187a1ab8a502a7373b6427e40589f01874d36ddbfc53e86334d3927e');
 
 --
 -- Indici per le tabelle scaricate
