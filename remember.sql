@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 05, 2021 alle 23:15
+-- Creato il: Mag 09, 2021 alle 10:03
 -- Versione del server: 10.4.18-MariaDB
 -- Versione PHP: 8.0.5
 
@@ -28,9 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `message` (
-  `id` int(15) NOT NULL,
-  `userId` int(10) NOT NULL,
-  `text` int(11) NOT NULL
+  `id` int(13) NOT NULL,
+  `username` text NOT NULL,
+  `message` text NOT NULL,
+  `iLike` int(13) NOT NULL,
+  `dislike` int(13) NOT NULL,
+  `reports` int(13) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -40,7 +43,7 @@ CREATE TABLE `message` (
 --
 
 CREATE TABLE `user` (
-  `id` int(10) NOT NULL,
+  `id` int(11) NOT NULL,
   `username` text NOT NULL,
   `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -59,7 +62,8 @@ ALTER TABLE `message`
 -- Indici per le tabelle `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`) USING HASH;
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
@@ -69,13 +73,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT per la tabella `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(13) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT per la tabella `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
