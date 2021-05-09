@@ -1,0 +1,76 @@
+<%- include('header', {logged:logged, username:username}); -%>
+
+<%
+if(addMessageError){%>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Credenziali errate.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>
+
+<div class="container">
+
+    <center><h1 class="display-4">All the message</h1></center>
+    <hr>
+    <div class="row" style="margin-bottom: 70px;">
+        <% for(let i = 0;i < messages.length; i++){ %>
+            <% if(!(messages[i].username == username)){ %>
+                <div class="col-md-4" style="margin-bottom: 30px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="/profile/?username=<%- messages[i].username -%>">
+                                <%- messages[i].username; -%>
+                            </a>
+                            <p class="lead">
+                                <%- messages[i].text -%>
+                            </p>
+                            <label>like : <%- messages[i].like -%>, dislike <%- messages[i].dislike -%></label>
+            
+                        </div>
+                    </div>
+                </div>
+            <% }else{ %>
+                <div class="col-md-4" style="margin-bottom: 30px;">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="/profile/?username=<%- messages[i].username -%>">
+                                        <%- messages[i].username; -%>
+                                    </a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="/message/removeMessage/?messageId=<%- messages[i].id -%>">delete</a>
+                                </div>
+                            </div>
+                            <p class="lead">
+                                <%- messages[i].text -%>
+                            </p>
+                            <label>like : <%- messages[i].like -%>, dislike <%- messages[i].dislike -%></label>
+                        </div>
+                    </div>
+                </div>
+            
+            <% } %>
+        <% } %>
+    </div>
+    <div style="position: fixed; height: 70px; width: 100%; bottom: 0px; left: 0px;">
+        <!--Write a message-->
+        <form method="POST" action="/message/addMessage">
+            <div class="container">
+                <div class="row">
+                    <div class="form-floating mb-3 col-7">
+                        <input type="text" name="text" class="form-control" id="floatingInput" placeholder="your message text here">
+                        <label for="floatingInput" >message text</label>                        
+                    </div>
+                    <div class="col-5">
+                        <center><input type="submit" class="btn btn-primary"></center>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+ 
+<%- include('footer') -%>

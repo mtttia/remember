@@ -1,0 +1,54 @@
+<%- include('header', {logged:logged, username:username}); -%>
+
+<div class="container">
+    <div>
+        <center><h1 class="display-4"><%- usernameAnsked -%></h1>
+        <hr>
+        <p class="display-6">All <%- usernameAnsked -%> message</p>
+        <div class="row">
+            <% for(let i = 0;i < messages.length; i++){ %>
+                <% if(!(messages[i].username == username)){ %>
+                    <div class="col-md-4" style="margin-bottom: 30px;">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="/profile/?username=<%- messages[i].username -%>">
+                                    <%- messages[i].username; -%>
+                                </a>
+                                <p class="lead">
+                                    <%- messages[i].text -%>
+                                </p>
+                                <label>like : <%- messages[i].like -%>, dislike <%- messages[i].dislike -%></label>
+                
+                            </div>
+                        </div>
+                    </div>
+                <% }else{ %>
+                    <div class="col-md-4" style="margin-bottom: 30px;">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="/profile/?username=<%- messages[i].username -%>">
+                                            <%- messages[i].username; -%>
+                                        </a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="/message/removeMessage/?messageId=<%- messages[i].id -%>">delete</a>
+                                    </div>
+                                </div>
+                                <p class="lead">
+                                    <%- messages[i].text -%>
+                                </p>
+                                <label>like : <%- messages[i].like -%>, dislike <%- messages[i].dislike -%></label>
+                            </div>
+                        </div>
+                    </div>
+                
+                <% } %>
+            <% } %>
+        </div>
+    </center>
+    </div>
+</div>
+ 
+<%- include('footer') -%>

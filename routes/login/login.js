@@ -10,8 +10,6 @@ router.get('/', function(req, res, next) {
     failed = true;
   if('name' in req.cookies)
     username = req.cookies.name;
-  if('passwd' in req.cookies)
-    password = req.cookies.passwd;
   console.log('username : ' + username + ', password : ' + password);
   res.render('login', {username : username, password: password, failed : failed});
 });

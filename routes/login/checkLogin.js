@@ -4,9 +4,7 @@ var mysql = require('mysql');
 var mysqlData = require('./../../private/mysql'); //mysql data object, is private
 var router = express.Router();
 
-var conn = mysql.createConnection(mysqlData);
 
-conn.connect();
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
@@ -36,7 +34,9 @@ router.post('/', function(req, res, next) {
       else{
         //I've got a response
         //i'm logged as user
-        //set il cookie
+        //set the cookie
+        //set the session
+        req.session.username = username;
         res.cookie('name', username);
         res.cookie('passwd', password);
         res.redirect('/');

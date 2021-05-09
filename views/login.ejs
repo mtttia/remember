@@ -1,4 +1,4 @@
-<%- include('header'); -%>
+<%- include('header', {logged:!failed, username:username}); -%>
 <%
 if(failed){%>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -26,6 +26,7 @@ if(failed){%>
                 <input type="submit" class="btn btn-primary" value="login">
             </form>
         </center>
+        You aren't already a user,<a href="/register"> register now!</a>
     </div>
 </div>
 <%- include('footer'); -%>

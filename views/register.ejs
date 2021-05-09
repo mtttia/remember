@@ -1,10 +1,15 @@
-<%- include('header'); -%>
+<%- include('header', {logged:false}); -%>
 
-
+<% if(failed){ %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%- errorString -%>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
 <div class="row" style="overflow: hidden;">
     <div class="offset-md-2 col-8">
         <div style="margin-top: 30px;">
-            <h1>login</h1>
+            <h1>Register a new free account now</h1>
             <form style="margin-top: 30px;" method="POST" action="/register/checkRegister">
                 <div class="form-group">
                   <label for="username">Username</label>
@@ -16,7 +21,7 @@
                 </div>
                 <div class="form-group">
                     <label for="confPasswd">Confirm password</label>
-                    <input type="password" class="form-control" id="confPasswd" name="confirmPassword" placeholder="Confirm password">
+                    <input type="password" class="form-control" id="confPasswd" name="checkPassword" placeholder="Confirm password">
                   </div>
                 <div class="form-check">
                   <input type="checkbox" name="keep_in" class="form-check-input" id="keep_in">

@@ -2,12 +2,19 @@ var express = require('express');
 var crypto = require('crypto');
 var mysql = require('mysql');
 var mysqlData = require('./../../private/mysql'); //mysql data object, is private
+const { user } = require('./../../private/mysql');
 var router = express.Router();
 
-var conn = mysql.createConnection(mysqlData);
 
-conn.connect();
+/*
 
+ERROR CODE
+0 - password and checkpassword not the same
+1 - username is already in use
+2 - ignote error
+3 - password empty
+
+*/
 /* GET home page. */
 router.post('/', function(req, res, next) {
   try{
@@ -15,11 +22,16 @@ router.post('/', function(req, res, next) {
     //if not redirect to login
     let username = req.body.username;
     let password = req.body.password;
-    let checkPassword = req.body.password;
+    let checkPassword = req.body.checkPassword;
     let makeCookie = req.body.keep_in;
+
+    if(password == ""){
+      registerFailed(res, 3);
+    }
+
     if(password != checkPassword)
     {
-        registerFailed(res);
+      registerFailed(res, 0);
     }
     //crypt the password
     password = cryptWithSHA(password);
@@ -34,12 +46,14 @@ router.post('/', function(req, res, next) {
             
         if(err)
         {
-            registerFailed(res, makeCookie);
+          registerFailed(res, 1);
         }
         else{
             //I've got a response
             //i'm logged as user
             //set il cookie
+            //init the session
+            req.session.username = username;
             if(makeCookie)
             {
                 res.cookie('name', username);
@@ -52,17 +66,18 @@ router.post('/', function(req, res, next) {
     })
   }catch(ex)
   {
-    req.redirect('/register/?registerFailed');
+    registerFailed(res, 2);
   }
 
 })
 
-function registerFailed(res)
+function registerFailed(res, errorCode)
 {
     //redirect to login
     res.clearCookie('name');
     res.clearCookie('passwd');
-    res.redirect('/login/?registerFailed');
+    res.redirect('/register/?registerFailed&errorCode=' + errorCode);
+    res.end();
 }
 
 function cryptWithSHA(code){
